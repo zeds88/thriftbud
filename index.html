@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
+<title>ThriftBud — Would You Flip It? | Social Thrift Intelligence</title>
+<meta name="description" content="The social app where thrift meets prediction markets. Post finds, vote on flips, and prove you've got the eye. Join 50K+ resellers making smarter buys.">
+<meta name="keywords" content="thrift, reselling, flip, marketplace, prediction market, thrift shopping, reseller app, thriftbud">
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thriftbud.com">
+<meta property="og:title" content="ThriftBud — Would You Flip It?">
+<meta property="og:description" content="Instagram meets Polymarket for thrift. Post finds. Vote on flips. Prove you've got the eye.">
+<meta property="og:image" content="https://thriftbud.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ThriftBud — Would You Flip It?">
+<meta name="twitter:description" content="Instagram meets Polymarket for thrift. Post finds. Vote on flips. Prove you've got the eye.">
+<meta name="twitter:image" content="https://thriftbud.com/og-image.png">
+
+<!-- PWA -->
+<meta name="theme-color" content="#0a0f1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://thriftbud.com">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ThriftBud",
+  "url": "https://thriftbud.com",
+  "description": "Social thrift intelligence platform where resellers post finds, vote on flip potential, and compete on prediction accuracy.",
+  "applicationCategory": "ShoppingApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   THRIFTBUD — Design System
+   Aesthetic: Street-culture meets fintech. 
+   Dark, high-contrast, neon accents on deep blacks.
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  --bg: #06080f;
+  --surface: #0d1117;
+  --card: #131a27;
+  --card-hover: #1a2335;
+  --border: #1c2538;
+  --border-light: #2a3650;
+  --neon: #00ff88;
+  --neon-dim: #00cc6a;
+  --neon-bg: rgba(0,255,136,0.06);
+  --neon-glow: rgba(0,255,136,0.15);
+  --hot: #ff3366;
+  --hot-bg: rgba(255,51,102,0.08);
+  --cyan: #00d4ff;
+  --amber: #ffaa00;
+  --violet: #9966ff;
+  --text: #e8ecf4;
+  --muted: #8899b4;
+  --dim: #556680;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-display);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 4px; }
+
+/* ─── Animations ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pulse-neon {
+  0%, 100% { box-shadow: 0 0 0px var(--neon-glow); }
+  50% { box-shadow: 0 0 20px var(--neon-glow), 0 0 40px rgba(0,255,136,0.05); }
+}
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes vote-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes scan-line {
+  0% { top: 10%; }
+  100% { top: 90%; }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.fade-up { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards; opacity: 0; }
+.fade-up-d1 { animation-delay: 0.1s; }
+.fade-up-d2 { animation-delay: 0.2s; }
+.fade-up-d3 { animation-delay: 0.3s; }
+.fade-up-d4 { animation-delay: 0.4s; }
+.fade-up-d5 { animation-delay: 0.5s; }
+
+/* ─── Layout ─── */
+.app-shell {
+  max-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Live Ticker ─── */
+.ticker {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0;
+  overflow: hidden;
+  position: relative;
+}
+.ticker::before, .ticker::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+.ticker::before { left: 0; background: linear-gradient(90deg, var(--surface), transparent); }
+.ticker::after { right: 0; background: linear-gradient(-90deg, var(--surface), transparent); }
+.ticker-track {
+  display: flex;
+  gap: 32px;
+  animation: ticker-scroll 30s linear infinite;
+  width: max-content;
+}
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.ticker-item .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ticker-item strong { color: var(--text); font-weight: 700; }
+
+/* ─── Navigation ─── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(6,8,15,0.85);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--neon), #00cc88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 2px 12px var(--neon-glow);
+}
+.nav-logo-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+.nav-logo-text span { color: var(--neon); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-links a, .nav-links button {
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+}
+.nav-link { color: var(--muted); background: none; }
+.nav-link:hover { color: var(--text); background: var(--card); }
+.nav-cta {
+  color: var(--bg) !important;
+  background: var(--neon) !important;
+  font-weight: 700 !important;
+}
+.nav-cta:hover { background: var(--neon-dim) !important; }
+
+.nav-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--hot-bg);
+  color: var(--hot);
+  border: 1px solid rgba(255,51,102,0.2);
+  margin-left: 8px;
+}
+.nav-badge .pulse-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--hot);
+  animation: glow-pulse 1.5s infinite;
+}
+
+/* ─── Hero ─── */
+.hero {
+  padding: 48px 20px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--neon-glow), transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--neon-bg);
+  color: var(--neon);
+  border: 1px solid rgba(0,255,136,0.15);
+  margin-bottom: 20px;
+  position: relative;
+}
+.hero h1 {
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.hero h1 .gradient-text {
+  background: linear-gradient(135deg, var(--neon), var(--cyan), var(--neon));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease infinite;
+}
+.hero-sub {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 28px;
+  line-height: 1.5;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: 12px;
+  background: var(--neon);
+  color: var(--bg);
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-display);
+  box-shadow: 0 4px 20px var(--neon-glow);
+}
+.btn-primary:hover { background: var(--neon-dim); transform: translateY(-1px); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-display);
+}
+.btn-secondary:hover { background: var(--card-hover); border-color: var(--border-light); }
+
+/* Stats strip */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-value {
+  font-size: 22px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--neon);
+}
+.hero-stat-label {
+  font-size: 11px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ─── Feed Section ─── */
+.feed-section {
+  padding: 0 20px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.feed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.feed-title {
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.feed-filters {
+  display: flex;
+  gap: 6px;
+}
+.filter-pill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-display);
+}
+.filter-pill:hover { border-color: var(--border-light); color: var(--text); }
+.filter-pill.active {
+  background: var(--neon);
+  color: var(--bg);
+  border-color: var(--neon);
+}
+
+/* ─── Reel Cards (the star of the show) ─── */
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+@media (max-width: 700px) {
+  .feed-grid { grid-template-columns: 1fr; }
+}
+
+.reel-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+}
+.reel-card:hover {
+  border-color: var(--border-light);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+
+/* Image area */
+.reel-image {
+  position: relative;
+  aspect-ratio: 4/5;
+  background: var(--surface);
+  overflow: hidden;
+}
+.reel-image-bg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  background: linear-gradient(135deg, var(--card), var(--surface));
+  position: relative;
+}
+/* Simulated photo overlay grain */
+.reel-image-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(6,8,15,0.7) 100%);
+  pointer-events: none;
+}
+
+/* Live badge on image */
+.reel-live-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255,51,102,0.9);
+  color: white;
+  backdrop-filter: blur(8px);
+  z-index: 3;
+}
+.reel-live-badge .pulse-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: white;
+  animation: glow-pulse 1s infinite;
+}
+
+/* View count overlay */
+.reel-views {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(6,8,15,0.7);
+  color: var(--text);
+  backdrop-filter: blur(8px);
+  z-index: 3;
+}
+
+/* Item info overlay on image */
+.reel-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 16px 16px;
+  z-index: 3;
+}
+.reel-item-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  margin-bottom: 4px;
+}
+.reel-item-meta {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.reel-item-meta .tag {
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.12);
+  font-weight: 600;
+  font-size: 11px;
+}
+
+/* ─── Polymarket-Style Prediction Section ─── */
+.reel-body {
+  padding: 16px;
+}
+.reel-question {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Vote bars */
+.vote-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.vote-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-display);
+}
+.vote-btn::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0%;
+  transition: height 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.vote-btn.flip::before {
+  background: linear-gradient(180deg, transparent, var(--neon-glow));
+}
+.vote-btn.pass::before {
+  background: linear-gradient(180deg, transparent, var(--hot-bg));
+}
+.vote-btn:hover { border-color: var(--border-light); transform: scale(1.02); }
+.vote-btn.flip:hover { border-color: rgba(0,255,136,0.3); }
+.vote-btn.pass:hover { border-color: rgba(255,51,102,0.3); }
+.vote-btn.voted { animation: vote-pop 0.3s ease; pointer-events: none; }
+.vote-btn.voted.flip { border-color: var(--neon); background: var(--neon-bg); }
+.vote-btn.voted.pass { border-color: var(--hot); background: var(--hot-bg); }
+.vote-btn.voted::before { height: 100%; }
+
+.vote-label {
+  font-size: 13px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+.vote-btn.flip .vote-label { color: var(--neon); }
+.vote-btn.pass .vote-label { color: var(--hot); }
+.vote-pct {
+  font-size: 22px;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  position: relative;
+  z-index: 1;
+  margin-top: 2px;
+}
+.vote-btn.flip .vote-pct { color: var(--neon); }
+.vote-btn.pass .vote-pct { color: var(--hot); }
+.vote-count {
+  font-size: 10px;
+  color: var(--dim);
+  position: relative;
+  z-index: 1;
+  margin-top: 2px;
+}
+
+/* Price pills */
+.reel-prices {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.price-pill {
+  flex: 1;
+  padding: 8px;
+  border-radius: 10px;
+  background: var(--surface);
+  text-align: center;
+}
+.price-pill-label {
+  font-size: 10px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.price-pill-value {
+  font-size: 16px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  margin-top: 2px;
+}
+.price-pill-value.paid { color: var(--text); }
+.price-pill-value.worth { color: var(--cyan); }
+.price-pill-value.profit { color: var(--neon); }
+
+/* User footer */
+.reel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.reel-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.reel-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: var(--surface);
+}
+.reel-username {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+}
+.reel-time {
+  font-size: 11px;
+  color: var(--dim);
+}
+.reel-actions {
+  display: flex;
+  gap: 4px;
+}
+.reel-action-btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-display);
+}
+.reel-action-btn:hover { color: var(--text); border-color: var(--border-light); }
+
+/* ─── CTA Section ─── */
+.cta-section {
+  padding: 60px 20px;
+  text-align: center;
+  position: relative;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 500px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--neon-glow), transparent 70%);
+  pointer-events: none;
+}
+.cta-card {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--neon), var(--cyan), var(--neon));
+  background-size: 200% auto;
+  animation: gradient-shift 3s linear infinite;
+}
+.cta-card h2 {
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.cta-card p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+.cta-form {
+  display: flex;
+  gap: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.cta-input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 14px;
+  font-family: var(--font-display);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.cta-input:focus { border-color: var(--neon); }
+.cta-input::placeholder { color: var(--dim); }
+
+/* ─── Footer ─── */
+.footer {
+  padding: 32px 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-copy {
+  font-size: 12px;
+  color: var(--dim);
+}
+.footer-links {
+  display: flex;
+  gap: 16px;
+}
+.footer-links a {
+  font-size: 12px;
+  color: var(--dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--muted); }
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .nav-links .nav-link { display: none; }
+  .hero { padding: 32px 16px 24px; }
+  .hero-stats { gap: 20px; }
+  .feed-section { padding: 0 12px 40px; }
+  .cta-form { flex-direction: column; }
+  .footer-inner { justify-content: center; text-align: center; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-shell" id="app">
+
+  <!-- ═══ Live Activity Ticker ═══ -->
+  <div class="ticker">
+    <div class="ticker-track" id="ticker">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- ═══ Navigation ═══ -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="nav-logo-icon">🌿</div>
+        <div class="nav-logo-text">Thrift<span>Bud</span></div>
+        <div class="nav-badge"><span class="pulse-dot"></span> LIVE</div>
+      </a>
+      <div class="nav-links">
+        <a href="#feed" class="nav-link">Feed</a>
+        <a href="#leaderboard" class="nav-link">Ranks</a>
+        <button class="nav-cta" id="joinBtn">Join Free</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ Hero ═══ -->
+  <section class="hero">
+    <div class="hero-badge fade-up">
+      🔥 2,847 predictions made today
+    </div>
+    <h1 class="fade-up fade-up-d1">
+      Would You<br><span class="gradient-text">Flip It?</span>
+    </h1>
+    <p class="hero-sub fade-up fade-up-d2">
+      Post thrift finds. The community votes. Prove you've got the eye.
+      <strong>Instagram meets Polymarket for resellers.</strong>
+    </p>
+    <div class="hero-actions fade-up fade-up-d3">
+      <button class="btn-primary" id="heroJoin">
+        📸 Post Your Find
+      </button>
+      <button class="btn-secondary" onclick="document.getElementById('feed').scrollIntoView({behavior:'smooth'})">
+        👀 Browse Feed
+      </button>
+    </div>
+    <div class="hero-stats fade-up fade-up-d4">
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-count="52847">0</div>
+        <div class="hero-stat-label">Votes Cast</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-count="4231">0</div>
+        <div class="hero-stat-label">Items Posted</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-prefix="$" data-count="847000">$0</div>
+        <div class="hero-stat-label">Profit Found</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value" data-suffix="%" data-count="73">0</div>
+        <div class="hero-stat-label">Flip Accuracy</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Feed ═══ -->
+  <section class="feed-section" id="feed">
+    <div class="feed-header fade-up">
+      <div class="feed-title">
+        🔥 Live Feed
+      </div>
+      <div class="feed-filters">
+        <button class="filter-pill active" data-filter="trending">Trending</button>
+        <button class="filter-pill" data-filter="new">New</button>
+        <button class="filter-pill" data-filter="closing">Closing Soon</button>
+        <button class="filter-pill" data-filter="resolved">Resolved</button>
+      </div>
+    </div>
+
+    <div class="feed-grid" id="feedGrid">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta-section">
+    <div class="cta-card fade-up">
+      <h2>Start Predicting 🎯</h2>
+      <p>Join ThriftBud and prove you've got the eye. It's free.</p>
+      <div class="cta-form">
+        <input type="email" class="cta-input" placeholder="your@email.com" id="ctaEmail">
+        <button class="btn-primary" id="ctaBtn">Join Free</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-copy">© 2026 ThriftBud. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="https://tiktok.com" target="_blank">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// THRIFTBUD — Interactive Logic
+// ═══════════════════════════════════════════════════
+
+// ─── Feed Data (Mock) ───
+const ITEMS = [
+  {
+    id: 1,
+    name: 'Nike Dunk Low "Panda"',
+    emoji: '👟',
+    category: 'Sneakers',
+    condition: 'DS/New',
+    paid: 45,
+    estValue: [120, 150],
+    user: { name: 'thriftqueen', avatar: '👩‍🦰' },
+    votes: { flip: 342, pass: 58 },
+    views: 2847,
+    time: '12m ago',
+    isLive: true,
+    trending: true,
+  },
+  {
+    id: 2,
+    name: 'Vintage Pendleton Wool Shirt',
+    emoji: '🧥',
+    category: 'Vintage',
+    condition: 'Good',
+    paid: 8,
+    estValue: [80, 120],
+    user: { name: 'flipking', avatar: '👨🏾' },
+    votes: { flip: 891, pass: 42 },
+    views: 5103,
+    time: '34m ago',
+    isLive: false,
+    trending: true,
+  },
+  {
+    id: 3,
+    name: 'Coach Bag — Real or Fake?',
+    emoji: '👜',
+    category: 'Bags',
+    condition: 'Fair',
+    paid: 25,
+    estValue: [0, 30],
+    user: { name: 'newbie_seller', avatar: '🧑🏻' },
+    votes: { flip: 67, pass: 445 },
+    views: 1289,
+    time: '1h ago',
+    isLive: false,
+    trending: false,
+  },
+  {
+    id: 4,
+    name: 'KitchenAid Artisan Mixer',
+    emoji: '🍳',
+    category: 'Home',
+    condition: 'Excellent',
+    paid: 35,
+    estValue: [150, 200],
+    user: { name: 'estate_hunter', avatar: '👩🏽' },
+    votes: { flip: 1203, pass: 31 },
+    views: 8402,
+    time: '2h ago',
+    isLive: true,
+    trending: true,
+  },
+  {
+    id: 5,
+    name: 'Supreme Box Logo Hoodie',
+    emoji: '🔴',
+    category: 'Streetwear',
+    condition: 'Excellent',
+    paid: 120,
+    estValue: [350, 500],
+    user: { name: 'hype_flipper', avatar: '😎' },
+    votes: { flip: 567, pass: 89 },
+    views: 4201,
+    time: '45m ago',
+    isLive: true,
+    trending: true,
+  },
+  {
+    id: 6,
+    name: 'Vintage Levi 501 Jeans',
+    emoji: '👖',
+    category: 'Vintage',
+    condition: 'Good',
+    paid: 12,
+    estValue: [65, 95],
+    user: { name: 'denim_dealer', avatar: '🤠' },
+    votes: { flip: 445, pass: 72 },
+    views: 3100,
+    time: '3h ago',
+    isLive: false,
+    trending: true,
+  },
+];
+
+// ─── Ticker ───
+const TICKER_EVENTS = [
+  { text: '<strong>thriftqueen</strong> posted a Nike Dunk', color: 'var(--neon)' },
+  { text: '<strong>flipking</strong> voted FLIP on Pendleton', color: 'var(--neon)' },
+  { text: '<strong>newbie_seller</strong> got 400+ PASS votes', color: 'var(--hot)' },
+  { text: '<strong>estate_hunter</strong> confirmed +$165 profit', color: 'var(--neon)' },
+  { text: '<strong>hype_flipper</strong> hit 90% prediction accuracy', color: 'var(--amber)' },
+  { text: '<strong>denim_dealer</strong> posted Vintage Levi\'s', color: 'var(--cyan)' },
+  { text: '<strong>thriftqueen</strong> ranked #1 this week', color: 'var(--amber)' },
+  { text: '<strong>newflip23</strong> joined ThriftBud', color: 'var(--violet)' },
+  { text: '<strong>goodwillguru</strong> sold for 12x profit', color: 'var(--neon)' },
+  { text: '<strong>vintagefind</strong> posted a Patagonia jacket', color: 'var(--cyan)' },
+];
+
+function buildTicker() {
+  const track = document.getElementById('ticker');
+  // Duplicate for seamless loop
+  let html = '';
+  for (let dup = 0; dup < 3; dup++) {
+    TICKER_EVENTS.forEach(ev => {
+      html += `<div class="ticker-item"><span class="dot" style="background:${ev.color}"></span>${ev.text}</div>`;
+    });
+  }
+  track.innerHTML = html;
+}
+
+// ─── Render Feed ───
+const userVotes = {};
+
+function renderFeed() {
+  const grid = document.getElementById('feedGrid');
+  grid.innerHTML = ITEMS.map(item => {
+    const totalVotes = item.votes.flip + item.votes.pass;
+    const flipPct = Math.round((item.votes.flip / totalVotes) * 100);
+    const passPct = 100 - flipPct;
+    const estProfit = item.estValue[0] - item.paid;
+    const estProfitHigh = item.estValue[1] - item.paid;
+    const vote = userVotes[item.id];
+
+    return `
+      <div class="reel-card fade-up" data-id="${item.id}">
+        <div class="reel-image">
+          <div class="reel-image-bg">${item.emoji}</div>
+          ${item.isLive ? `<div class="reel-live-badge"><span class="pulse-dot"></span> LIVE</div>` : ''}
+          <div class="reel-views">👁 ${item.views.toLocaleString()}</div>
+          <div class="reel-overlay">
+            <div class="reel-item-name">${item.name}</div>
+            <div class="reel-item-meta">
+              <span class="tag">${item.category}</span>
+              <span>${item.condition}</span>
+            </div>
+          </div>
+        </div>
+        <div class="reel-body">
+          <div class="reel-question">📊 Would you flip it?</div>
+          
+          <div class="vote-container">
+            <button class="vote-btn flip ${vote === 'flip' ? 'voted' : ''}" onclick="castVote(${item.id}, 'flip')">
+              <div class="vote-label">FLIP IT 🔥</div>
+              <div class="vote-pct">${flipPct}%</div>
+              <div class="vote-count">${item.votes.flip.toLocaleString()} votes</div>
+            </button>
+            <button class="vote-btn pass ${vote === 'pass' ? 'voted' : ''}" onclick="castVote(${item.id}, 'pass')">
+              <div class="vote-label">PASS ✋</div>
+              <div class="vote-pct">${passPct}%</div>
+              <div class="vote-count">${item.votes.pass.toLocaleString()} votes</div>
+            </button>
+          </div>
+
+          <div class="reel-prices">
+            <div class="price-pill">
+              <div class="price-pill-label">Paid</div>
+              <div class="price-pill-value paid">$${item.paid}</div>
+            </div>
+            <div class="price-pill">
+              <div class="price-pill-label">Est. Value</div>
+              <div class="price-pill-value worth">$${item.estValue[0]}–${item.estValue[1]}</div>
+            </div>
+            <div class="price-pill">
+              <div class="price-pill-label">Potential</div>
+              <div class="price-pill-value profit">+$${estProfit}–${estProfitHigh}</div>
+            </div>
+          </div>
+
+          <div class="reel-footer">
+            <div class="reel-user">
+              <div class="reel-avatar">${item.user.avatar}</div>
+              <div>
+                <div class="reel-username">@${item.user.name}</div>
+                <div class="reel-time">${item.time}</div>
+              </div>
+            </div>
+            <div class="reel-actions">
+              <button class="reel-action-btn" onclick="shareItem(${item.id})">🔗 Share</button>
+              <button class="reel-action-btn">💬 ${Math.floor(Math.random() * 30) + 3}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ─── Voting ───
+function castVote(id, type) {
+  if (userVotes[id]) return;
+  userVotes[id] = type;
+  
+  const item = ITEMS.find(i => i.id === id);
+  if (item) {
+    item.votes[type] += 1;
+  }
+  renderFeed();
+}
+
+// ─── Share ───
+function shareItem(id) {
+  const item = ITEMS.find(i => i.id === id);
+  if (navigator.share) {
+    navigator.share({
+      title: `Would you flip this? ${item.name}`,
+      text: `${item.name} — Paid $${item.paid}, worth $${item.estValue[0]}-${item.estValue[1]}. Vote now on ThriftBud!`,
+      url: 'https://thriftbud.com',
+    });
+  } else {
+    navigator.clipboard.writeText(`Would you flip this? ${item.name} — Paid $${item.paid} | ThriftBud: https://thriftbud.com`);
+    alert('Link copied! 🔗');
+  }
+}
+
+// ─── Filter Pills ───
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+  });
+});
+
+// ─── Counter Animation ───
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = prefix + Math.floor(current).toLocaleString() + suffix;
+    }, 16);
+  });
+}
+
+// ─── Email Capture ───
+function handleJoin() {
+  const email = document.getElementById('ctaEmail').value;
+  if (email && email.includes('@')) {
+    document.getElementById('ctaBtn').textContent = '✅ You\'re in!';
+    document.getElementById('ctaBtn').style.background = 'var(--neon-dim)';
+    // In production: POST to /api/waitlist
+  }
+}
+
+document.getElementById('ctaBtn').addEventListener('click', handleJoin);
+document.getElementById('joinBtn').addEventListener('click', () => {
+  document.querySelector('.cta-section').scrollIntoView({ behavior: 'smooth' });
+});
+document.getElementById('heroJoin').addEventListener('click', () => {
+  document.querySelector('.cta-section').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ─── Init ───
+buildTicker();
+renderFeed();
+
+// Trigger counters on scroll into view
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      observer.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.hero-stats').forEach(el => observer.observe(el));
+
+// Fade-up on scroll
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationPlayState = 'running';
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  fadeObserver.observe(el);
+});
+// Immediately play hero animations
+document.querySelectorAll('.hero .fade-up').forEach(el => {
+  el.style.animationPlayState = 'running';
+});
+
+</script>
+
+</body>
+</html>

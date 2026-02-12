@@ -1,0 +1,21 @@
+{
+  "name": "ThriftBud",
+  "short_name": "ThriftBud",
+  "description": "Would You Flip It? Social thrift prediction market.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#06080f",
+  "theme_color": "#00ff88",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
